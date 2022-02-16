@@ -30,14 +30,14 @@ public class Player extends Entity{
     public void getPlayerImage() {
         try{
 
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/pokemon.png") );
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/pokemon.png") );
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/pokemon.png") );
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/pokemon.png") );
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/pokemon_left1.png") );
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/pokemon_left2.png.png") );
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/pokemon_right1.png") );
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/pokemon_right2.png.png") );
+            up1 = ImageIO.read(getClass().getResourceAsStream("/player/dog_up1.png") );
+            up2 = ImageIO.read(getClass().getResourceAsStream("/player/dog_up2.png") );
+            down1 = ImageIO.read(getClass().getResourceAsStream("/player/dog_down1.png") );
+            down2 = ImageIO.read(getClass().getResourceAsStream("/player/dog_down2.png") );
+            left1 = ImageIO.read(getClass().getResourceAsStream("/player/dog_left1.png") );
+            left2 = ImageIO.read(getClass().getResourceAsStream("/player/dog_left2.png") );
+            right1 = ImageIO.read(getClass().getResourceAsStream("/player/dog_right1.png") );
+            right2 = ImageIO.read(getClass().getResourceAsStream("/player/dog_right2.png") );
 
         }catch(IOException e){
 
@@ -66,7 +66,7 @@ public class Player extends Entity{
                 x += speed;
             }
             spriteCounter++;
-            if(spriteCounter > 20){
+            if(spriteCounter > 12){
                 if(spriteNum == 1){
                     spriteNum = 2;
                 }
