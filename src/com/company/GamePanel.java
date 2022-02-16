@@ -1,5 +1,7 @@
 package com.company;
 
+import entity.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import  javax.swing.JPanel;
@@ -8,7 +10,7 @@ public class GamePanel extends JPanel implements Runnable {
     // screen setting
     final int originalTitleSize = 16;
     final int scale = 3;
-    final int titleSize = originalTitleSize * scale;
+    public final int titleSize = originalTitleSize * scale;
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
     final int screenWidth = titleSize * maxScreenCol;
@@ -19,7 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler key = new KeyHandler();
     Thread gameThread;
-
+    Player player = new Player(this, key);
     //setting player's first position
     int playerX = screenWidth/2;
     int playerY = screenHeight/2;
@@ -63,29 +65,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if(key.bottomUp)
-        {
-            playerY -= playerSpeed;
-        }
-        else if (key.bottomDown)
-        {
-            playerY += playerSpeed;
-        }
-        else if (key.bottomLeft)
-        {
-            playerX -= playerSpeed;
-        }
-        else if (key.bottomRight)
-        {
-            playerX += playerSpeed;
-        }
+        player.update();
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.setColor(Color.getHSBColor(160, 200, 230));
-        g2.fillRect(playerX, playerY, titleSize, titleSize);
+        player.draw(g2);
         g2.dispose();
     }
 }
