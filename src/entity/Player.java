@@ -12,18 +12,25 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler key;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gp, KeyHandler key){
         this.gp = gp;
         this.key = key;
+
+        screenX = gp.screenWidth/2 - (gp.tileSize/2);
+        screenY = gp.screenHeight/2 - (gp.tileSize/2);
+
+        solidArea = new Rectangle(0, 0, 48, 48);
 
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize*4;
+        worldY = gp.tileSize*4;
         speed = 4;
         direction = "down";
     }
@@ -45,42 +52,59 @@ public class Player extends Entity{
         }
     }
     public void update() {
-            if(key.bottomUp)
-            {
-                direction = "up";
-                y -= speed;
+        if(key.bottomUp)
+        {
+            direction = "up";
+        }
+        else if (key.bottomDown)
+        {
+            direction = "down";
+        }
+        else if (key.bottomLeft)
+        {
+            direction = "left";
+        }
+        else if (key.bottomRight)
+        {
+            direction = "right";
+        }
+
+        //checking collision with tiles
+        collisionOn = false;
+        gp.collisionChecker.checkTile(this);
+
+        //if collision is false, then player can move
+        if (collisionOn == false)
+        {
+            switch (direction){
+                case "up":
+                    worldY -= speed;
+                    break;
+                case "down":
+                    worldY += speed;
+                    break;
+                case "left":
+                    worldX -= speed;
+                    break;
+                case "right":
+                    worldX += speed;
+                    break;
             }
-            else if (key.bottomDown)
-            {
-                direction = "down";
-                y += speed;
+        }
+
+        spriteCounter++;
+        if(spriteCounter > 12){
+            if(spriteNum == 1){
+                spriteNum = 2;
             }
-            else if (key.bottomLeft)
-            {
-                direction = "left";
-                x -= speed;
+            else if(spriteNum == 2){
+                spriteNum = 1;
             }
-            else if (key.bottomRight)
-            {
-                direction = "right";
-                x += speed;
-            }
-            spriteCounter++;
-            if(spriteCounter > 12){
-                if(spriteNum == 1){
-                    spriteNum = 2;
-                }
-                else if(spriteNum == 2){
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
-            }
+            spriteCounter = 0;
+        }
     }
 
     public void draw(Graphics2D g2) {
-        //g2.setColor(Color.getHSBColor(160, 200, 230));
-        //g2.fillRect(x, y, gp.titleSize, gp.titleSize);
-
         BufferedImage image = null;
 
         switch(direction) {
@@ -117,8 +141,6 @@ public class Player extends Entity{
                 }
                 break;
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
-
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
-
 }
