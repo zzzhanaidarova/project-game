@@ -24,11 +24,11 @@ public class TileManager {
     public void getTileImage(){
         try {
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/grass.png"));
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/wall.png"));
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/water.png"));
         }
         catch (IOException e){
             e.printStackTrace();
